@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 
+import AccountCard from './AccountCard'
+
 class Accounts extends Component {
   state = {
     accounts: []
@@ -16,15 +18,15 @@ class Accounts extends Component {
     console.log('## accounts', accounts)
     const renderAccounts = (
       (accounts.length > 0) ? (
-        <ul>{accounts.map((account, index) => <li key={index}>{account.bank_nickname}</li>)}</ul>
+        accounts.map((account, index) => <AccountCard key={index} account={account}/>)
       ) : (
         <h2>No Accounts, please add your account</h2>
       )
     )
 
     return (
-      <div>
-        <h1>Accounts:</h1>
+      <div className="container" style={{marginTop: 30}}>
+        <h2>Account Listing</h2>
         {renderAccounts}
       </div>
     )
