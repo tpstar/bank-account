@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import { connect } from "react-redux";
 import styled from 'styled-components'
 import { Button, Container, Modal, ModalBody, ModalHeader } from 'reactstrap'
 
 import AccountCard from './AccountCard'
+import { fetchAccounts } from '../../actions'
 
 const Header = styled.div`
   display: flex;
@@ -17,13 +18,11 @@ const Header = styled.div`
 
 class Accounts extends Component {
   state = {
-    accounts: [],
     showModal: false,
   }
 
   async componentDidMount() {
-    const result = await axios.get('http://localhost:5000/api/v1/accounts')
-    this.setState({ accounts: result.data })
+    await this.props.fetchAccounts()
   }
 
   createAccount = () => {
@@ -39,7 +38,8 @@ class Accounts extends Component {
   }
 
   render() {
-    const { accounts, showModal } = this.state;
+    const { showModal } = this.state
+    const { accounts } = this.props
     console.log('## accounts', accounts)
     const renderAccounts = (
       (accounts.length > 0) ? (
@@ -83,4 +83,6 @@ class Accounts extends Component {
   }
 }
 
-export default Accounts;
+const mapStateToProps = ({ accounts }) => ({ accounts })
+
+export default connect(mapStateToProps, { fetchAccounts })(Accounts);
