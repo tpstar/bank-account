@@ -20,7 +20,7 @@ const Header = styled.div`
 class Accounts extends Component {
   state = {
     showModal: false,
-    // selectedAccount: null
+    selectedAccount: null
   }
 
   async componentDidMount() {
@@ -34,13 +34,20 @@ class Accounts extends Component {
   }
 
   saveAccount = async values => {
+    // console.log('## values', values)
     await this.props.submitAccount(values)
     this.setState({
-      showModal: false
+      showModal: false,
+      selectedAccount: null
     })
   }
 
-  editAccount = account => console.log(account)
+  editAccount = account => {
+    this.setState({
+      showModal: true,
+      selectedAccount: account
+    })
+  }
 
   removeAccount = async accountId => {
     const result = await this.props.removeAccount(accountId)
@@ -51,7 +58,8 @@ class Accounts extends Component {
 
   toggleModal = () => {
     this.setState({
-      showModal: false
+      showModal: false,
+      selectedAccount: null
     })
   }
 
@@ -60,7 +68,7 @@ class Accounts extends Component {
   }
 
   render() {
-    const { showModal } = this.state
+    const { selectedAccount, showModal } = this.state
     const { accounts } = this.props
     console.log('## accounts', accounts)
 
@@ -81,7 +89,7 @@ class Accounts extends Component {
           fade={false}
         >
           <ModalBody style={{ backgroundColor: '#f0f0f0' }}>
-            <AccountModal handleSubmit={this.saveAccount} />
+            <AccountModal handleSubmit={this.saveAccount} account={selectedAccount}/>
           </ModalBody>
         </Modal>
         <Header>
