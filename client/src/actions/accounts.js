@@ -1,14 +1,15 @@
 import axios from 'axios'
 
 export const FETCH_ACCOUNTS = "fetch_accounts"
-export const CREATE_ACCOUNTS = "create_accounts"
+export const CREATE_ACCOUNT = "create_account"
+export const REMOVE_ACCOUNT = "remove_account"
 
 const ROOT_URL = "http://localhost:5000/api/v1/"
 
 const newAccount = account => {
   const request = axios.post(`${ROOT_URL}/accounts`, account)
   return {
-    type: CREATE_ACCOUNTS,
+    type: CREATE_ACCOUNT,
     payload: request
   }
 }
@@ -30,5 +31,13 @@ export const submitAccount = account => {
     return updateAccount(account)
   } else {
     return newAccount(account)
+  }
+}
+
+export const removeAccount = accountId => {
+  const request = axios.delete(`${ROOT_URL}/accounts/${accountId}`)
+  return {
+    type: REMOVE_ACCOUNT,
+    payload: request
   }
 }

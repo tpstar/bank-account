@@ -5,7 +5,7 @@ import { Button, Container, Modal, ModalBody } from 'reactstrap'
 
 import AccountCard from './AccountCard'
 import AccountModal from './AccountModal'
-import { fetchAccounts, submitAccount } from '../../actions'
+import { fetchAccounts, removeAccount, submitAccount } from '../../actions'
 
 const Header = styled.div`
   display: flex;
@@ -40,6 +40,15 @@ class Accounts extends Component {
     })
   }
 
+  editAccount = account => console.log(account)
+
+  removeAccount = async accountId => {
+    const result = await this.props.removeAccount(accountId)
+    if (result.payload && result.payload.data) {
+      alert('Account was deleted')
+    }
+  }
+
   toggleModal = () => {
     this.setState({
       showModal: false
@@ -57,7 +66,7 @@ class Accounts extends Component {
 
     const renderAccounts = (
       (accounts.length > 0) ? (
-        accounts.map(account => <AccountCard key={account.id} account={account}/>)
+        accounts.map(account => <AccountCard key={account.id} account={account} edit={this.editAccount} remove={this.removeAccount}/>)
       ) : (
         <h4>No Accounts, please add your account</h4>
       )
@@ -94,4 +103,4 @@ class Accounts extends Component {
 
 const mapStateToProps = ({ accounts }) => ({ accounts })
 
-export default connect(mapStateToProps, { fetchAccounts, submitAccount })(Accounts);
+export default connect(mapStateToProps, { fetchAccounts, removeAccount, submitAccount })(Accounts);

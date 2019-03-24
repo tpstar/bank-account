@@ -8,15 +8,17 @@ import {
 import DropdownActions from '../../components/DropdownActions'
 
 
-export default ({account}) => {
+export default ({account, edit, remove}) => {
   const actions = [
     {
       name: 'Edit Account',
-      callback: () => alert('edit')
+      callback: () => edit(account),
+      color: 'black'
     },
     {
       name: 'Delete Account',
-      callback: () => alert('delete')
+      callback: () => remove(account.id),
+      color: 'red'
     }
   ]
   return (

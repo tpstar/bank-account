@@ -22,7 +22,7 @@ export default ({ actions }) => (
       </DropdownToggle>
       <DropdownMenu right>
       {actions.map((action, index) => (
-        <DropdownItem key={index} onClick={action.callback}>
+        <DropdownItem key={index} onClick={action.callback} style={{color: action.color}}>
           {action.name}
         </DropdownItem>
         ))}

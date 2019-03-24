@@ -35,7 +35,9 @@ class Api::V1::AccountsController < ApplicationController
 
   # DELETE /accounts/1
   def destroy
+    account_id = @account.id
     @account.destroy
+    render json: {id: account_id}
   end
 
   private
