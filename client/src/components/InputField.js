@@ -12,7 +12,6 @@ const InputField = ({
   type,
   children,
   placeholder,
-  readOnly,
   meta: { touched, error, warning }
 }) => (
   <fieldset className="form-group">
