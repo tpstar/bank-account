@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Accounts from './components/Accounts'
+import Accounts from './screens/Accounts'
 
 class App extends Component {
   render() {

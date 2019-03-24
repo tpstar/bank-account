@@ -3,9 +3,9 @@ import { Card, Col, Row } from 'reactstrap'
 
 export default ({account}) => (
   <Card body style={{margin: 20, width: 700}}>
-    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-      <h4>{account.bank_nickname}</h4>
-      <i style={{fontSize: "0.8em", alignSelf: "flex-end", paddingBottom: 3}}>{account.bank_address}</i>
+    <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+      <h5>{account.bank_nickname}</h5>
+      <i style={{fontSize: "0.8em"}}>{account.bank_address}</i>
     </div>
     <hr style={{marginTop: '0.6em'}}/>
     <Row>

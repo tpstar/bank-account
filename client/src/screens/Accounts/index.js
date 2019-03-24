@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import styled from 'styled-components'
-import { Button, Container, Modal, ModalBody, ModalHeader } from 'reactstrap'
+import { Button, Container, Modal, ModalBody } from 'reactstrap'
 
 import AccountCard from './AccountCard'
-import { fetchAccounts } from '../../actions'
+import AccountModal from './AccountModal'
+import { fetchAccounts, submitAccount } from '../../actions'
 
 const Header = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const Header = styled.div`
 class Accounts extends Component {
   state = {
     showModal: false,
+    // selectedAccount: null
   }
 
   async componentDidMount() {
@@ -31,19 +33,31 @@ class Accounts extends Component {
     })
   }
 
-  _toggleModal = () => {
+  saveAccount = async values => {
+    await this.props.submitAccount(values)
     this.setState({
       showModal: false
     })
+  }
+
+  toggleModal = () => {
+    this.setState({
+      showModal: false
+    })
+  }
+
+  handleSubmit = async values => {
+    console.log('## values', values)
   }
 
   render() {
     const { showModal } = this.state
     const { accounts } = this.props
     console.log('## accounts', accounts)
+
     const renderAccounts = (
       (accounts.length > 0) ? (
-        accounts.map((account, index) => <AccountCard key={index} account={account}/>)
+        accounts.map(account => <AccountCard key={account.id} account={account}/>)
       ) : (
         <h4>No Accounts, please add your account</h4>
       )
@@ -53,18 +67,13 @@ class Accounts extends Component {
       <Container fluid style={{marginTop: 30}}>
         <Modal
           isOpen={showModal}
-          toggle={this._toggleModal}
+          toggle={this.toggleModal}
           className="big-modal"
           fade={false}
         >
-            <>
-              <ModalHeader toggle={this._toggleModal}>
-                Add Account
-              </ModalHeader>
-              <ModalBody style={{ backgroundColor: '#f0f0f0' }}>
-                <p>Form</p>
-              </ModalBody>
-            </>
+          <ModalBody style={{ backgroundColor: '#f0f0f0' }}>
+            <AccountModal handleSubmit={this.saveAccount} />
+          </ModalBody>
         </Modal>
         <Header>
           <h2>Account Listing</h2>
@@ -85,4 +94,4 @@ class Accounts extends Component {
 
 const mapStateToProps = ({ accounts }) => ({ accounts })
 
-export default connect(mapStateToProps, { fetchAccounts })(Accounts);
+export default connect(mapStateToProps, { fetchAccounts, submitAccount })(Accounts);
