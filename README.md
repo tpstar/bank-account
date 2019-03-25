@@ -9,23 +9,23 @@ It was built with Ruby on Rails for API and React for frontend.
 #### To run this app;
 
 1. clone this app (copy and paste the below line in your terminal)
-  git clone https://github.com/tpstar/bank-account.git
+  + git clone https://github.com/tpstar/bank-account.git
 2. move to the app directory
-  cd bank-account
+  + cd bank-account
 3. install Ruby gems
-  bundle install
+  + bundle install
 4. create a data migration
-  rake db:migrate
+  + rake db:migrate
 5. seed data
-  rake db:seed
+  + rake db:seed
 6. start the api server on port 5000
-  rails s -p 5000
+  + rails s -p 5000
 6. move to client directory (on a new tab in your terminal)
-  cd client
+  + cd client
 7. install Javascript packages
-  yarn
+  + yarn
 8. start the client server
-  yarn start
+  + yarn start
 9. on your browser go to
   localhost:3000
 
